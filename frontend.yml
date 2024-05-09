@@ -3,6 +3,9 @@
   become: true
   #become_method: sudo # Optional
   tasks:
+    - name: Set Prompt
+      ansible.builtin.shell: set-prompt frontend
+
     - name: Installing Nginx
       ansible.builtin.dnf:
         name: nginx
