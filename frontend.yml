@@ -1,8 +1,0 @@
-- name: Frontend Playbook
-  hosts: all
-  become: true
-  #become_method: sudo # Optional
-  roles:
-    - frontend
-
-
