@@ -3,8 +3,7 @@ Description = Nginx Exporter Service
 
 [Service]
 User=prometheus
-WorkingDirectory=/opt/node_exporter-1.8.1.linux-amd64
-ExecStart=/opt/node_exporter-1.8.1.linux-amd64/node_exporter
+ExecStart=/opt/nginx-prometheus-exporter --nginx.scrape-uri=http://localhost/health
 SyslogIdentifier=prometheus
 
 [Install]
