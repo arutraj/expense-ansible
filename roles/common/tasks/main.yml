@@ -6,6 +6,10 @@
     name: prometheus
     tasks_from: node-exporter
 
+- name: Print value
+  ansible.builtin.debug:
+    msg: Value - {{ install_nginx_exporter }}
+
 - name: Setup Nginx Exporter
   ansible.builtin.import_role:
     name: prometheus
