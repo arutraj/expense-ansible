@@ -14,7 +14,7 @@
   ansible.builtin.import_role:
     name: prometheus
     tasks_from: nginx-exporter
-  when: install_nginx_exporter | bool
+  when: install_nginx_exporter
 
 
 
