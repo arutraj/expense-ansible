@@ -6,3 +6,12 @@
     name: prometheus
     tasks_from: node-exporter
 
+- name: Setup Nginx Exporter
+  ansible.builtin.import_role:
+    name: prometheus
+    tasks_from: nginx-exporter
+  when: install_nginx_exporter | bool
+
+
+
+
