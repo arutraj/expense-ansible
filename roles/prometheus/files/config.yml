@@ -16,8 +16,9 @@ metrics:
     - type: counter
       name: response_code
       help: Response Codes
+      value: '{{.response_code}}'
       match: '%{IP:client_ip}%{SPACE}%{HTTPDATE:time}%{SPACE}%{WORD:http_method}%{SPACE}%{PATH:http_path}%{SPACE}%{WORD}/%{NUMBER:http_version}%{SPACE}%{NUMBER:response_code}%{SPACE}%{NUMBER:body_size_sent}%{SPACE}%{URI}%{SPACE}%{NUMBER:response_time}'
       labels:
-          response_code: '{{.response_code}}'
+          http_path: '{{.http_path}}'
 server:
     port: 9144
