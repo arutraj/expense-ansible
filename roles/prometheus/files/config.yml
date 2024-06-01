@@ -13,7 +13,7 @@ metrics:
       match: '%{IP:client_ip}%{SPACE}%{HTTPDATE:time}%{SPACE}%{WORD:http_method}%{SPACE}%{PATH:http_path}%{SPACE}%{WORD}/%{NUMBER:http_version}%{SPACE}%{NUMBER:response_code}%{SPACE}%{NUMBER:body_size_sent}%{SPACE}%{URI}%{SPACE}%{NUMBER:response_time}'
       labels:
           response_time: '{{.response_time}}'
-    - type: counter
+    - type: gauge
       name: response_code
       help: Response Codes
       value: '{{.response_code}}'
