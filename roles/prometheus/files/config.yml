@@ -7,7 +7,7 @@ input:
 grok:
     patterns_dir: ./patterns
 metrics:
-    - type: counter
+    - type: gauge
       name: response_time
       help: Response Time
       value: '{{.response_time}}'
