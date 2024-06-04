@@ -11,7 +11,7 @@
 
 - name: Add Expense User
   ansible.builtin.user:
-    name: expense
+    name: "{{app_user}}"
 
 - name: Copy Backend Service file
   ansible.builtin.template:
@@ -26,6 +26,7 @@
 - name: Download NodeJS App Dependencies
   community.general.npm:
     path: /app
+  become_user: "{{app_user}}"
 
 - name: Install MySQL Client & MySQL Python Module
   ansible.builtin.dnf:
