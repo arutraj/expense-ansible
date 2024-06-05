@@ -28,6 +28,12 @@
     path: /app
   become_user: "{{app_user}}"
 
+- name: Download NewRelic Dependencies
+  community.general.npm:
+    name: newrelic
+    path: /app
+  become_user: "{{app_user}}"
+
 - name: Install MySQL Client & MySQL Python Module
   ansible.builtin.dnf:
     name:
@@ -42,7 +48,7 @@
     target: /app/schema/backend.sql
     login_user: "{{ secrets.MYSQL_USER }}"
     login_password: "{{ secrets.MYSQL_PASS }}"
-    login_host: mysql-{{env}}.rdevopsb79.online
+    login_host: "{{ secrets.DB_HOST }}"
 
 - name: Start Backend Service
   ansible.builtin.systemd_service:
