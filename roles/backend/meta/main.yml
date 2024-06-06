@@ -1,3 +1,7 @@
 dependencies:
   - role: common
+    vars:
+      install_filebeat: true
+
+
 

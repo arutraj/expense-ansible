@@ -1,0 +1,17 @@
+- name: Copy Repo file
+  ansible.builtin.template:
+    src: elastic.repo
+    dest: /etc/yum.repos.d/elastic.repo
+
+- name: Install filebeat
+  ansible.builtin.dnf:
+    name: filebeat
+    state: installed
+
+# - name: Copy Filbeat config
+#
+# - name: Start filebeat service
+
+
+
+
