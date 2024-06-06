@@ -23,4 +23,10 @@
     name: filebeat
   when: install_filebeat
 
+- name: Configure rsyslog
+  ansible.builtin.include_role:
+    name: rsyslog
+  when: configure_rsyslog
+
+
 
