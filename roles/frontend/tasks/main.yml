@@ -30,12 +30,13 @@
     state: installed
 
 - name: Run Frontend Docker
-  community.docker.docker_container:
+  containers.podman.podman_container:
     name: frontend
-    state: present
     image: docker.io/rkalluru/d79-frontend
+    state: started
+    restart: true
     ports:
-      - 80:80
+        - "80:80"
 
 
 
