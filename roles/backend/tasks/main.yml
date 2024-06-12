@@ -58,7 +58,7 @@
 - name: Run Schema Container
   containers.podman.podman_container:
     name: schema
-    image: docker.io/rkalluru/d79-schema
+    image: docker.io/rkalluru/d79-schema-loader:latest
     state: started
     restart: true
     env:
