@@ -1,38 +1,38 @@
-- name: Disable NodeJS Default Version
-  ansible.builtin.shell: dnf module disable nodejs -y
-
-- name: Enable NodeJS 20 Version
-  ansible.builtin.shell: dnf module enable nodejs:20 -y
-
-- name: Install NodeJS
-  ansible.builtin.dnf:
-    name: nodejs
-    state: present
-
-- name: Add Expense User
-  ansible.builtin.user:
-    name: "{{app_user}}"
-
-- name: Copy Backend Service file
-  ansible.builtin.template:
-    src: backend.service
-    dest: /etc/systemd/system/backend.service
-
-- name: Import App Prerequisites
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: app-prereq
-
-- name: Download NodeJS App Dependencies
-  community.general.npm:
-    path: /app
-  become_user: "{{app_user}}"
-
-- name: Download NewRelic Dependencies
-  community.general.npm:
-    name: newrelic
-    path: /app
-  become_user: "{{app_user}}"
+# - name: Disable NodeJS Default Version
+#   ansible.builtin.shell: dnf module disable nodejs -y
+#
+# - name: Enable NodeJS 20 Version
+#   ansible.builtin.shell: dnf module enable nodejs:20 -y
+#
+# - name: Install NodeJS
+#   ansible.builtin.dnf:
+#     name: nodejs
+#     state: present
+#
+# - name: Add Expense User
+#   ansible.builtin.user:
+#     name: "{{app_user}}"
+#
+# - name: Copy Backend Service file
+#   ansible.builtin.template:
+#     src: backend.service
+#     dest: /etc/systemd/system/backend.service
+#
+# - name: Import App Prerequisites
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: app-prereq
+#
+# - name: Download NodeJS App Dependencies
+#   community.general.npm:
+#     path: /app
+#   become_user: "{{app_user}}"
+#
+# - name: Download NewRelic Dependencies
+#   community.general.npm:
+#     name: newrelic
+#     path: /app
+#   become_user: "{{app_user}}"
 
 - name: Install MySQL Client & MySQL Python Module
   ansible.builtin.dnf:
@@ -50,9 +50,25 @@
     login_password: "{{ secrets.MYSQL_PASS }}"
     login_host: "{{ secrets.DB_HOST }}"
 
-- name: Start Backend Service
-  ansible.builtin.systemd_service:
+- name: Install Docker
+  ansible.builtin.dnf:
+    name: docker
+    state: installed
+
+- name: Run Backend container
+  containers.podman.podman_container:
     name: backend
-    state: restarted
-    enabled: true
-    daemon_reload: true
+    image: docker.io/rkalluru/d79-backend
+    state: started
+    restart: true
+    ports:
+        - "8080:8080"
+    env:
+      DB_HOST: "{{ secrets.DB_HOST }}"
+
+# - name: Start Backend Service
+#   ansible.builtin.systemd_service:
+#     name: backend
+#     state: restarted
+#     enabled: true
+#     daemon_reload: true
