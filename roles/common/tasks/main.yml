@@ -28,5 +28,12 @@
     name: rsyslog
   when: configure_rsyslog
 
+- name: Extend Partition
+  community.general.parted:
+    device: /dev/nvme0n1
+    number: 4
+    part_end: "100%"
+    resize: true
+    state: present
 
 
