@@ -29,7 +29,7 @@
   when: configure_rsyslog
 
 - name: Extend Partition
-  community.general.shell: growpart /dev/nvme0n1 4 ; lvextend -l 100%FREE /dev/mapper/RootVG-varVol ; xfs_growfs /var
+  ansible.builtin.shell: growpart /dev/nvme0n1 4 ; lvextend -l 100%FREE /dev/mapper/RootVG-varVol ; xfs_growfs /var
 
 
 
